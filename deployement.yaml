@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: backend
+spec:
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: bsbiradar/my-backend:v1
+          ports:
+            - containerPort: 8080
+          resources:
+           requests:
+            memory: "64Mi"
+            cpu: "250m"
+           limits:
+            memory: "128Mi"
+            cpu: "500m"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  strategy:
+    type: RollingUpdate
